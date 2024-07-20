@@ -8,6 +8,8 @@ let dict = {
     'u':  'ufat'
 }
 
+const letras = /^[a-z]/i
+
 let codigo = '';
 let cadena = '';
 
@@ -21,24 +23,37 @@ document.addEventListener('DOMContentLoaded', function() {
     if (elemento) {
         // Agregar un event listener para el evento 'input'
         elemento.addEventListener('input', function(event) {
+            // Convertir el valor del input a minúsculas
             let valor = elemento.value.toLowerCase();
-            if (["á", "é", "í", "ó", "ú", "ä", "ë", "ï", "ö", "ü", "ç", "$", "/", "!", "@", "#", "&", "(", ")", "-", "_"].includes(valor)) {
-                //console.log(dict[texto.value[i]]);
-                alert(`Este caracter ${valor} no es válido`);
-                valor = '';
+
+            // Crear una variable para almacenar el valor limpio
+            let valorLimpio = '';
+
+            // Verificar cada carácter en el valor
+            for (let i = 0; i < valor.length; i++) {
+                if (["á", "é", "í", "ó", "ú", "ä", "ë", "ï", "ö", "ü", "ç", "$", "/", "!", "@", "#", "&", "(", ")", "-", "_"].includes(valor[i])) {
+                    alert(`Este carácter '${valor[i]}' no es válido`);
+                    // Solo actualiza el valor limpio si el carácter es válido
+                } else {
+                    valorLimpio += valor[i];
+                }
             }
-            elemento.value = valor; // Actualizar el valor del input a minúsculas
+
+            // Actualizar el valor del input con el valor limpio
+            elemento.value = valorLimpio;
         });
 
         elemento.addEventListener('dblclick', function() {
             elemento.value = '';
             // Asegúrate de que 'resultado' esté definido en tu código
+            let resultado = document.getElementById('resultado'); // Añadido para definir 'resultado'
             if (resultado) {
                 resultado.value = '';
             }
         });
     }
 });
+
 
 function codificar() {
     codigo = '';
