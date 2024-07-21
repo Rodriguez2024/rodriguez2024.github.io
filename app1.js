@@ -8,8 +8,6 @@ let dict = {
     'u':  'ufat'
 }
 
-const letras = /^[a-z]/i
-
 let codigo = '';
 let cadena = '';
 
@@ -61,15 +59,30 @@ function codificar() {
     for (let i = 0, n = texto.value.length; i < n; i++) { 
         let letra = texto.value[i];
         if(["a", "e", "i", "o", "u"].includes(letra)) {
-            //console.log(dict[texto.value[i]]);
             codigo += dict[texto.value[i]];
           } else {
                console.log(texto.value[i]);
                codigo += texto.value[i];
             };
     }
-    console.log(codigo, " = ", texto.value);
     resultado.value = codigo; 
 
 }
 
+function decodificar() {
+    let codigo = texto.value;
+    resultado.value = '';
+    let result = codigo;
+
+    console.log(codigo);
+
+    Object.entries(dict).forEach(([key, value]) => {
+        console.log(key, ' - ', value, ' - ', codigo.indexOf(value));
+        if (codigo.includes(value)) {
+            result = result.split(value).join(key);
+        }
+    });
+
+    console.log(result);
+    resultado.value = result;
+}
